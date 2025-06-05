@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Número Primo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .primo {
+            color: green;
+        }
+
+        .nao-primo {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Verifique se um Número é Primo</h1>
+    
+    <p>Digite um número inteiro positivo:</p>
+    <input type="number" id="numeroInput" placeholder="Ex: 17">
+    <button onclick="verificar()">Verificar</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function encontrarNumeroPrimo(numero) {
+            if (numero <= 1) {
+                return false;
+            }
+
+            for (let i = 2; i * i <= numero; i++) {
+                if (numero % i === 0) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function verificar() {
+            const valor = document.getElementById("numeroInput").value;
+            const numero = parseInt(valor);
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Verifica se a entrada é válida
+            if (isNaN(numero) || numero < 0) {
+                resultadoDiv.textContent = "Por favor, insira um número inteiro positivo válido.";
+                resultadoDiv.className = "resultado nao-primo";
+                return;
+            }
+
+            const ehPrimo = encontrarNumeroPrimo(numero);
+
+            if (ehPrimo) {
+                resultadoDiv.textContent = `✅ O número ${numero} é primo.`;
+                resultadoDiv.className = "resultado primo";
+            } else {
+                resultadoDiv.textContent = `❌ O número ${numero} NÃO é primo.`;
+                resultadoDiv.className = "resultado nao-primo";
+            }
+        }
+
+        // Testes no console
+        console.log(encontrarNumeroPrimo(2));   // true
+        console.log(encontrarNumeroPrimo(5));   // true
+        console.log(encontrarNumeroPrimo(10));  // false
+        console.log(encontrarNumeroPrimo(1));   // false
+        console.log(encontrarNumeroPrimo(17));  // true
+
+    </script>
+</body>
+</html>

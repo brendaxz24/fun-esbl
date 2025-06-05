@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorizador de Produtos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .economica {
+            color: green;
+        }
+
+        .intermediaria {
+            color: orange;
+        }
+
+        .premium {
+            color: purple;
+        }
+
+        .invalida {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Categorize o Preço de um Produto</h1>
+    <p>Informe o preço do produto:</p>
+
+    <input type="text" id="precoInput" placeholder="Ex: 79.99">
+    <button onclick="categorizar()">Categorizar</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function categorizarProduto(preco) {
+            if (typeof preco !== 'number' || isNaN(preco) || preco < 0) {
+                return "Preço inválido";
+            }
+
+            if (preco < 50) {
+                return "Econômico";
+            } else if (preco <= 100) {
+                return "Intermediário";
+            } else {
+                return "Premium";
+            }
+        }
+
+        function categorizar() {
+            const valor = document.getElementById("precoInput").value;
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Converte o valor digitado para número
+            const preco = parseFloat(valor.replace(',', '.'));
+
+            const categoria = categorizarProduto(preco);
+
+            // Exibe a resposta com estilo baseado na categoria
+            if (categoria === "Econômico") {
+                resultadoDiv.textContent = `💰 Categoria: ${categoria}`;
+                resultadoDiv.className = "resultado economica";
+            } else if (categoria === "Intermediário") {
+                resultadoDiv.textContent = `🛒 Categoria: ${categoria}`;
+                resultadoDiv.className = "resultado intermediaria";
+            } else if (categoria === "Premium") {
+                resultadoDiv.textContent = `💎 Categoria: ${categoria}`;
+                resultadoDiv.className = "resultado premium";
+            } else {
+                resultadoDiv.textContent = `❌ ${categoria}`;
+                resultadoDiv.className = "resultado invalida";
+            }
+        }
+
+        // Testes no console
+        console.log(categorizarProduto(30));     // Saída: "Econômico"
+        console.log(categorizarProduto(75));     // Saída: "Intermediário"
+        console.log(categorizarProduto(120));    // Saída: "Premium"
+        console.log(categorizarProduto(-10));    // Saída: "Preço inválido"
+        console.log(categorizarProduto("abc"));  // Saída: "Preço inválido"
+    </script>
+
+</body>
+</html>

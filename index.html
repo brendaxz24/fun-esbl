@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Calcular Desconto</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input {
+            margin: 5px 0 10px 0;
+            display: block;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 16px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora de Desconto</h1>
+
+    <label for="preco">Preço Original (R$):</label>
+    <input type="number" id="preco" placeholder="Ex: 100">
+
+    <label for="desconto">Porcentagem de Desconto (%):</label>
+    <input type="number" id="desconto" placeholder="Ex: 20">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularDesconto(precoOriginal, porcentagemDesconto) {
+            const desconto = precoOriginal * (porcentagemDesconto / 100);
+            const precoFinal = precoOriginal - desconto;
+            return precoFinal.toFixed(2); // Arredonda para duas casas decimais
+        }
+
+        function calcular() {
+            const precoInput = document.getElementById("preco").value;
+            const descontoInput = document.getElementById("desconto").value;
+
+            const precoOriginal = parseFloat(precoInput);
+            const porcentagemDesconto = parseFloat(descontoInput);
+
+            if (isNaN(precoOriginal) || isNaN(porcentagemDesconto)) {
+                document.getElementById("resultado").innerText = "Por favor, insira valores válidos.";
+                return;
+            }
+
+            const valorComDesconto = calcularDesconto(precoOriginal, porcentagemDesconto);
+            document.getElementById("resultado").innerText = "Preço com desconto: R$ " + valorComDesconto;
+        }
+    </script>
+
+</body>
+</html>

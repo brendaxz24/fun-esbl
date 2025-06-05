@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar Palavras por Comprimento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 15px;
+            display: inline-block;
+            border-radius: 5px;
+            min-width: 300px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Filtrar Palavras por Comprimento</h1>
+
+    <p>Insira palavras separadas por vírgula:</p>
+    <input type="text" id="palavrasInput" placeholder="Ex: gato,elefante,cão,hipopotamo">
+
+    <p>Comprimento mínimo das palavras:</p>
+    <input type="number" id="comprimentoInput" placeholder="Ex: 5">
+
+    <button onclick="filtrar()">Filtrar Palavras</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function filtrarPalavras(palavras, comprimento) {
+            return palavras.filter(function(palavra) {
+                return palavra.length >= comprimento;
+            });
+        }
+
+        function filtrar() {
+            const palavrasTexto = document.getElementById("palavrasInput").value;
+            const comprimentoTexto = document.getElementById("comprimentoInput").value;
+
+            // Converte a string em array removendo espaços extras
+            const palavrasArray = palavrasTexto.split(',').map(p => p.trim());
+            const comprimento = parseInt(comprimentoTexto);
+
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Validação simples
+            if (isNaN(comprimento) || comprimento < 0) {
+                resultadoDiv.innerHTML = "<strong>Erro:</strong> Por favor, insira um número válido para o comprimento.";
+                return;
+            }
+
+            const palavrasFiltradas = filtrarPalavras(palavrasArray, comprimento);
+
+            if (palavrasFiltradas.length === 0) {
+                resultadoDiv.innerHTML = `<strong>Nenhuma palavra</strong> tem ${comprimento} ou mais letras.`;
+            } else {
+                resultadoDiv.innerHTML = `<strong>Palavras com ${comprimento} ou mais letras:</strong><br>` + palavrasFiltradas.join(', ');
+            }
+        }
+
+        // Teste no console
+        console.log(filtrarPalavras(["gato", "elefante", "cão", "hipopotamo"], 5));
+        // Saída: ["elefante", "hipopotamo"]
+    </script>
+
+</body>
+</html>

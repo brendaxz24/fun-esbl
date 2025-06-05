@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Média</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 15px;
+            display: inline-block;
+            border-radius: 5px;
+            min-width: 250px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora de Média</h1>
+    <p>Insira os números separados por vírgula:</p>
+    <input type="text" id="numerosInput" placeholder="Ex: 10,20,30">
+
+    <button onclick="calcular()">Calcular Média</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function calcularMedia(numeros) {
+            if (numeros.length === 0) {
+                return 0;
+            }
+
+            const soma = numeros.reduce((total, numero) => total + numero, 0);
+            const media = soma / numeros.length;
+
+            return media;
+        }
+
+        function calcular() {
+            const input = document.getElementById("numerosInput").value;
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Converte a entrada em array de números
+            const numerosArray = input.split(',').map(num => parseFloat(num.trim()));
+
+            // Validação simples: verifica se todos são números válidos
+            const todosValidos = numerosArray.every(num => !isNaN(num));
+
+            if (!todosValidos) {
+                resultadoDiv.innerHTML = "<strong>Erro:</strong> Todos os valores devem ser números válidos.";
+                return;
+            }
+
+            const media = calcularMedia(numerosArray);
+
+            if (media === 0 && numerosArray.length === 0) {
+                resultadoDiv.innerHTML = "⚠️ Nenhum número foi inserido.";
+            } else {
+                resultadoDiv.innerHTML = `A média dos números é: <strong>${media.toFixed(2)}</strong>`;
+            }
+        }
+
+        // Testes no console
+        console.log(calcularMedia([10, 20, 30])); // Saída: 20
+        console.log(calcularMedia([]));           // Saída: 0
+        console.log(calcularMedia([5, 7, 9]));     // Saída: 7
+    </script>
+
+</body>
+</html>

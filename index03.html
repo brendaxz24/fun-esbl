@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Senhas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    #senhaGerada {
+      margin-top: 20px;
+      font-size: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Senhas Aleatórias</h1>
+
+  <input type="number" id="comprimento" placeholder="Comprimento da senha" min="1" />
+  <button onclick="gerarSenha()">Gerar Senha</button>
+
+  <div id="senhaGerada"></div>
+
+  <script>
+    function gerarSenha() {
+      const input = document.getElementById("comprimento");
+      const comprimento = parseInt(input.value);
+      const resultadoDiv = document.getElementById("senhaGerada");
+
+      if (typeof comprimento !== "number" || comprimento <= 0 || isNaN(comprimento)) {
+        resultadoDiv.textContent = "O comprimento da senha deve ser um número positivo.";
+        return;
+      }
+
+      const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let senha = "";
+
+      for (let i = 0; i < comprimento; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+        senha += caracteres[indiceAleatorio];
+      }
+
+      resultadoDiv.textContent = "Senha gerada: " + senha;
+      console.log("Senha gerada:", senha);
+    }
+  </script>
+
+</body>
+</html>

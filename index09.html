@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de Vogais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Contador de Vogais</h1>
+    <p>Digite um texto abaixo e veja quantas vogais ele possui:</p>
+
+    <input type="text" id="textoInput" placeholder="Digite seu texto aqui...">
+    <button onclick="processarTexto()">Contar Vogais</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function contarVogais(texto) {
+            const textoMinusculo = texto.toLowerCase();
+            const vogais = ['a', 'e', 'i', 'o', 'u'];
+            let contador = 0;
+
+            for (let letra of textoMinusculo) {
+                if (vogais.includes(letra)) {
+                    contador++;
+                }
+            }
+
+            return contador;
+        }
+
+        function processarTexto() {
+            const texto = document.getElementById("textoInput").value;
+            const totalVogais = contarVogais(texto);
+            document.getElementById("resultado").innerText = 
+                `"${texto}" possui ${totalVogais} vogais.`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conversor de Temperatura</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f2f2f2;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Conversor de Temperatura</h1>
+
+  <input type="number" id="temperatura" placeholder="Digite a temperatura" />
+  
+  <select id="direcao">
+    <option value="CparaF">Celsius para Fahrenheit</option>
+    <option value="FparaC">Fahrenheit para Celsius</option>
+  </select>
+
+  <button onclick="converter()">Converter</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function converterTemperatura(temperatura, direcao) {
+      if (direcao === 'CparaF') {
+        return (temperatura * 9 / 5) + 32;
+      } else if (direcao === 'FparaC') {
+        return (temperatura - 32) * 5 / 9;
+      } else {
+        throw new Error("Direção inválida.");
+      }
+    }
+
+    function converter() {
+      const temperatura = parseFloat(document.getElementById("temperatura").value);
+      const direcao = document.getElementById("direcao").value;
+
+      if (isNaN(temperatura)) {
+        document.getElementById("resultado").textContent = "Por favor, insira um número válido.";
+        return;
+      }
+
+      const resultado = converterTemperatura(temperatura, direcao);
+
+      const dePara = direcao === 'CparaF' ? `${temperatura}°C → ${resultado.toFixed(2)}°F` : `${temperatura}°F → ${resultado.toFixed(2)}°C`;
+
+      document.getElementById("resultado").textContent = `Resultado: ${dePara}`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificar Maioridade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .erro {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Verifique se é maior de idade</h1>
+
+  <input type="number" id="idadeInput" placeholder="Digite sua idade" min="0" />
+  <button onclick="mostrarResultado()">Verificar</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function verificarMaioridade(idade) {
+      if (typeof idade !== 'number' || isNaN(idade) || idade < 0) {
+        return { erro: "Por favor, insira uma idade válida." };
+      }
+
+      if (idade >= 18) {
+        return { mensagem: "Você é maior de idade." };
+      } else {
+        return { mensagem: "Você é menor de idade." };
+      }
+    }
+
+    function mostrarResultado() {
+      const input = document.getElementById("idadeInput");
+      const valor = parseInt(input.value);
+      const divResultado = document.getElementById("resultado");
+
+      const resultado = verificarMaioridade(valor);
+
+      if (resultado.erro) {
+        divResultado.innerHTML = `<p class="erro">${resultado.erro}</p>`;
+        console.error(resultado.erro);
+        return;
+      }
+
+      divResultado.textContent = resultado.mensagem;
+      console.log(resultado.mensagem);
+    }
+  </script>
+
+</body>
+</html>
